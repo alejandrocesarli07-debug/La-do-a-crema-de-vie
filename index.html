@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Crema de Vie — Camagüey</title>
+  <meta name="description" content="Crema de Vie (Receta de La Doña). Pide en Camagüey por WhatsApp, llamada o por el formulario." />
+  <meta name="theme-color" content="#0b0f0e" />
+
+  <style>
+    :root{
+      --bg:#0b0f0e;
+      --card:#121816;
+      --card2:#0f1513;
+      --text:#f2f4f3;
+      --muted:#b9c2be;
+      --line:rgba(255,255,255,.10);
+      --accent:#f0c46a;   /* dorado crema */
+      --accent2:#1fb67a;  /* verde WhatsApp */
+      --danger:#ff5a5a;
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 15% -10%, rgba(240,196,106,.16), transparent 55%),
+        radial-gradient(800px 450px at 110% 5%, rgba(31,182,122,.14), transparent 55%),
+        var(--bg);
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 14px 14px 22px;
+    }
+
+    /* top */
+    .top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 6px 2px 12px;
+    }
+    .brand{
+      display:flex; gap:10px; align-items:center;
+    }
+    .dot{
+      width:40px;height:40px;border-radius:14px;
+      background: linear-gradient(135deg, rgba(240,196,106,.95), rgba(31,182,122,.85));
+      box-shadow: 0 18px 40px rgba(0,0,0,.45);
+    }
+    .brand b{display:block; font-size:15px; letter-spacing:.2px}
+    .brand small{display:block; color:var(--muted); font-size:12px; margin-top:1px}
+
+    .chip{
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      font-size:12px;
+      color: var(--muted);
+    }
+
+    /* card */
+    .card{
+      background: rgba(18,24,22,.78);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      overflow:hidden;
+      box-shadow: 0 22px 60px rgba(0,0,0,.48);
+    }
+    .hero{
+      padding: 14px;
+    }
+    h1{
+      margin:0;
+      font-size: 24px;
+      line-height:1.08;
+      letter-spacing:-.3px;
+    }
+    .lead{
+      margin:8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height:1.45;
+    }
+
+    /* images */
+    .gallery{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      padding: 12px 14px 0;
+    }
+    .ph{
+      border-radius: 16px;
+      overflow:hidden;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      aspect-ratio: 4/5;
+      position:relative;
+    }
+    .ph img{width:100%;height:100%;object-fit:cover;display:block}
+    .tag{
+      position:absolute;
+      left:10px; bottom:10px;
+      padding:6px 8px;
+      font-size:12px;
+      border-radius:999px;
+      background: rgba(0,0,0,.42);
+      border:1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(8px);
+    }
+
+    /* quick actions */
+    .actions{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      padding: 14px;
+    }
+    .btn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 14px 12px;
+      border-radius: 16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      font-weight: 800;
+      font-size: 14px;
+      user-select:none;
+      transition: transform .1s ease, background .1s ease, border-color .1s ease;
+    }
+    .btn:active{transform: translateY(1px)}
+    .btn.wa{
+      background: rgba(31,182,122,.14);
+      border-color: rgba(31,182,122,.35);
+    }
+    .btn.call{
+      background: rgba(240,196,106,.12);
+      border-color: rgba(240,196,106,.35);
+    }
+    .btn.small{
+      font-weight:700;
+      font-size:13px;
+      padding: 12px 12px;
+    }
+
+    /* order */
+    .sectionTitle{
+      padding: 0 14px 10px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing:.3px;
+      text-transform: uppercase;
+    }
+    .order{
+      padding: 0 14px 14px;
+      display:grid;
+      gap:10px;
+    }
+    label{
+      font-size:12px;
+      color: var(--muted);
+      margin: 0 0 6px;
+      display:block;
+    }
+    input, select, textarea{
+      width:100%;
+      padding: 13px 12px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      outline:none;
+      font-size: 15px; /* más cómodo en móvil */
+    }
+    textarea{min-height: 90px; resize: vertical}
+    input:focus, select:focus, textarea:focus{
+      border-color: rgba(240,196,106,.45);
+      box-shadow: 0 0 0 4px rgba(240,196,106,.12);
+    }
+
+    .row2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    @media (max-width: 360px){
+      .row2{grid-template-columns:1fr}
+    }
+
+    .submit{
+      background: linear-gradient(135deg, rgba(240,196,106,.95), rgba(31,182,122,.85));
+      color:#0b0f0e;
+      border:0;
+    }
+
+    .note{
+      color: var(--muted);
+      font-size: 12px;
+      line-height:1.4;
+    }
+
+    .status{
+      display:none;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      font-size: 13px;
+    }
+    .status.ok{display:block; border-color: rgba(31,182,122,.35); background: rgba(31,182,122,.12)}
+    .status.err{display:block; border-color: rgba(255,90,90,.35); background: rgba(255,90,90,.12)}
+
+    /* footer */
+    .footer{
+      margin-top: 14px;
+      color: rgba(185,194,190,.85);
+      font-size: 12px;
+      text-align:center;
+      padding: 10px 0 4px;
+    }
+    .divider{
+      height:1px;
+      background: var(--line);
+      margin: 12px 14px;
+      opacity:.7;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <div class="top">
+      <div class="brand">
+        <div class="dot" aria-hidden="true"></div>
+        <div>
+          <b>Crema de Vie</b>
+          <small>Receta de La Doña • Camagüey</small>
+        </div>
+      </div>
+      <div class="chip">Entrega rápida</div>
+    </div>
+
+    <div class="card">
+
+      <div class="hero">
+        <h1>La cremita que cae bien en cualquier momento 🍮✨</h1>
+        <p class="lead">
+          Dulcita, suave y bien hecha. Pídela para la casa, para regalar o para una reunión.
+          <br><b>Escríbenos por WhatsApp o haz tu pedido aquí mismo.</b>
+        </p>
+      </div>
+
+      <div class="gallery">
+        <!-- CAMBIA ESTAS FOTOS -->
+        <div class="ph">
+          <img src="image1.jpg" alt="Crema de Vie - foto 1">
+          <span class="tag">Original</span>
+        </div>
+        <div class="ph">
+          <img src="image2.jpg" alt="Crema de Vie - foto 2">
+          <span class="tag">Para regalar</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <!-- CAMBIA EL NÚMERO +53 -->
+        <a class="btn wa" href="https://wa.me/5355555555?text=Hola%20😊%20Quiero%20hacer%20un%20pedido%20de%20Crema%20de%20Vie.%20%C2%BFPrecio%20y%20disponibilidad%3F" target="_blank" rel="noopener">
+          💬 WhatsApp
+        </a>
+        <a class="btn call" href="tel:+5355555555">
+          📞 Llamar
+        </a>
+
+        <!-- REDES (opcional) -->
+        <a class="btn small" href="https://facebook.com/TU_FACEBOOK" target="_blank" rel="noopener">
+          👍 Facebook
+        </a>
+        <a class="btn small" href="https://instagram.com/TU_INSTAGRAM" target="_blank" rel="noopener">
+          📷 Instagram
+        </a>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="sectionTitle">Pedido rápido</div>
+
+      <form id="orderForm" class="order">
+        <div>
+          <label for="name">Tu nombre *</label>
+          <input id="name" name="name" placeholder="Ej: Yanelis" required />
+        </div>
+
+        <div>
+          <label for="phone">Tu teléfono (para confirmar) *</label>
+          <input id="phone" name="phone" placeholder="Ej: +53 5xxxxxxx" required />
+        </div>
+
+        <div class="row2">
+          <div>
+            <label for="qty">Cantidad *</label>
+            <select id="qty" name="qty" required>
+              <option value="" disabled selected>Elige</option>
+              <option value="1">1 botella</option>
+              <option value="2">2 botellas</option>
+              <option value="3">3 botellas</option>
+              <option value="4">4 botellas</option>
+              <option value="5">5 botellas</option>
+              <option value="6">6 botellas</option>
+            </select>
+          </div>
+          <div>
+            <label for="delivery">Entrega *</label>
+            <select id="delivery" name="delivery" required>
+              <option value="" disabled selected>Elige</option>
+              <option value="domicilio">A domicilio</option>
+              <option value="coordinar">Coordinar / Recoger</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label for="address">Dirección (si es a domicilio)</label>
+          <input id="address" name="address" placeholder="Reparto, calle, número, entre calles..." />
+        </div>
+
+        <div>
+          <label for="notes">Nota (opcional)</label>
+          <textarea id="notes" name="notes" placeholder="Horario, referencia, si es para regalo, etc."></textarea>
+        </div>
+
+        <button class="btn submit" type="submit" id="submitBtn">✅ Enviar pedido</button>
+
+        <div class="note">
+          Al enviar, te escribimos para confirmar disponibilidad y coordinar la entrega.
+        </div>
+
+        <div id="status" class="status"></div>
+      </form>
+
+    </div>
+
+    <div class="footer">
+      Hecho en Camagüey • <span id="year"></span>
+    </div>
+  </div>
+
+  <script>
+    // Pega aquí tu Webhook de n8n (recomendado). El webhook guardará en Airtable.
+    const WEBHOOK_URL = "https://YOUR_N8N_WEBHOOK_URL_HERE";
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const form = document.getElementById("orderForm");
+    const statusBox = document.getElementById("status");
+    const submitBtn = document.getElementById("submitBtn");
+
+    function setStatus(type, msg){
+      statusBox.className = "status " + (type === "ok" ? "ok" : "err");
+      statusBox.textContent = msg;
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      if (!WEBHOOK_URL || WEBHOOK_URL.includes("YOUR_N8N_WEBHOOK_URL_HERE")) {
+        setStatus("err", "Falta configurar el link del WEBHOOK (n8n).");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = ".85";
+
+      const payload = {
+        product: "Crema de Vie",
+        name: form.name.value.trim(),
+        phone: form.phone.value.trim(),
+        qty: form.qty.value,
+        delivery: form.delivery.value,
+        address: form.address.value.trim(),
+        notes: form.notes.value.trim(),
+        source: "website",
+        createdAt: new Date().toISOString()
+      };
+
+      try {
+        const res = await fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: {"Content-Type":"application/json"},
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) throw new Error("HTTP " + res.status);
+
+        setStatus("ok", "✅ Listo. Pedido enviado. En breve te contactamos.");
+        form.reset();
+      } catch (err) {
+        console.error(err);
+        setStatus("err", "❌ No se pudo enviar. Mejor escribe por WhatsApp o llama.");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = "1";
+      }
+    });
+  </script>
+</body>
+</html>
